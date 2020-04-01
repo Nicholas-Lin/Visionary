@@ -1,9 +1,11 @@
 import requests
-from Article import Article
-from Page import Page
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import playsound
 
+from Article import Article
+from Page import Page
+import voice
 
 def get_soup():
     soup = BeautifulSoup(driver.page_source, 'lxml')
@@ -51,8 +53,11 @@ def go_back():
     driver.execute_script("window.history.go(-1)")
     global soup, page, page_type
     soup = get_soup()
-    page = Page(soup)
     update_page_type()
+    if(page_type == "Article"):
+        page = Article(soup)
+    else:
+        page = Page(soup, page_type)
     prompt()
 
 def update_page_type():
@@ -65,7 +70,6 @@ def update_page_type():
     else:
         page_type = "Navigation"
 
-
 def init():
     global driver, soup, page, page_type
     driver = webdriver.Chrome()
@@ -75,19 +79,29 @@ def init():
     page_type = "Home"
     page = Page(soup, page_type)
 
-
 def run():
     global page_type
-    input_string = input("Enter input string: ").lower()
+    WAKE = "computer"
 
-    while(not "exit" in input_string):
-        if("back" in input_string):
-            go_back()
-        elif(page_type != "Article"):
-            parse_page_input(input_string)
-        else:
-            parse_article_input(input_string)
-        input_string = input("Enter input string: ").lower()
+    print("Listening...")
+    input_string = voice.get_audio()
+    while(True):
+        if input_string.count(WAKE) > 0:
+            while(True):    
+                    print("Activated...")
+                    playsound.playsound("activation_beep.mp3")
+                    input_string = voice.get_audio()
+
+                    if("exit" in input_string):
+                        break
+                    elif("back" in input_string):
+                        go_back()
+                    elif(page_type != "Article"):
+                        parse_page_input(input_string)
+                    else:
+                        parse_article_input(input_string)
+            break
+
     driver.quit()
 
 

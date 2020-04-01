@@ -10,11 +10,15 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
     - requests
     - selenium
     - bs4
+    - SpeechRecognition
+    - gTTS
+    - playsound
+- Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - Install [ChromeDriver](https://chromedriver.chromium.org/downloads) and move the executable to your `$PATH`
 
 
 ## Built With
 * Python
-* Beautiful Soup
+* Beautiful Soup 4
 * Selenium
-* [Google Cloud Text-to-Speech API](https://developers.google.com/maps/documentation)
+* Google Text-to-Speech Library
