@@ -1,3 +1,9 @@
+'''
+Nicholas Lin
+Page.py
+4/2/20
+'''
+
 class Page:
     headers = []
     headline = ""
@@ -29,7 +35,7 @@ class Page:
 
     # Returns headline = {headline_text : headline_url_postfix}
     def init_headline(self, soup):
-        headline_text = soup.find('h2').text
+        headline_text = soup.find('span', {'class':'balancedHeadline'}).text
         #headline_link = soup.find('div', {"class":"css-1t1jowt"}).a["href"]
         #self.headline = {headline_text : headline_link}
         self.headline = headline_text

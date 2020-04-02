@@ -1,3 +1,9 @@
+'''
+Nicholas Lin
+Article.py
+4/2/20
+'''
+
 class Article:
     headline = ""
     authors = []

@@ -1,7 +1,14 @@
+'''
+Nicholas Lin
+finder.py
+4/2/20
+'''
+
 import requests
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import playsound
+import time
 
 from Article import Article
 from Page import Page
@@ -11,14 +18,23 @@ def get_soup():
     soup = BeautifulSoup(driver.page_source, 'lxml')
     return soup
 
+def go_to_website(url):
+    global driver
+    driver.get(url)
+    update()
 
+#TODO: Find a better way of matching link_text to uppercase
 def go_to_page(link_text):
-    elem = driver.find_element_by_link_text(link_text)
+    try:
+        elem = driver.find_element_by_link_text(link_text)
+    except Exception as e:
+        print(e)
+    try:
+        elem = driver.find_element_by_link_text(link_text.upper())
+    except Exception as e:
+        print(e)
     elem.click()
-    global soup, page
-    soup = get_soup()
-    page = Page(soup, page_type)
-
+    update()
 
 def go_to_article(link_text):
     elem = driver.find_element_by_link_text(link_text)
@@ -32,12 +48,18 @@ def go_to_article(link_text):
 def prompt():
     if (page_type == "Article"):
         print(page.headline)
+        voice.speak(page.headline)
+    elif (page_type == "Home"):
+        print(page.headline)
+        voice.speak("The headline is " + page.headline)
 
 
 def read_headers(headers):
     output = ""
     for header in headers:
         output += header + ", "
+    
+    voice.speak(output)
     print(output)
 
 
@@ -51,13 +73,16 @@ def read_articles(articles):
 
 def go_back():
     driver.execute_script("window.history.go(-1)")
-    global soup, page, page_type
+
+def update():   
+    global soup, page
     soup = get_soup()
     update_page_type()
     if(page_type == "Article"):
         page = Article(soup)
     else:
         page = Page(soup, page_type)
+    
     prompt()
 
 def update_page_type():
@@ -71,37 +96,30 @@ def update_page_type():
         page_type = "Navigation"
 
 def init():
-    global driver, soup, page, page_type
+    voice.speak("Hello, where would you like to go?")
+    global driver
     driver = webdriver.Chrome()
-    url = "https://www.nytimes.com"
-    driver.get(url)
-    soup = get_soup()
-    page_type = "Home"
-    page = Page(soup, page_type)
 
 def run():
     global page_type
-    WAKE = "computer"
-
-    print("Listening...")
-    input_string = voice.get_audio()
-    while(True):
-        if input_string.count(WAKE) > 0:
-            while(True):    
-                    print("Activated...")
-                    playsound.playsound("activation_beep.mp3")
-                    input_string = voice.get_audio()
-
-                    if("exit" in input_string):
-                        break
-                    elif("back" in input_string):
-                        go_back()
-                    elif(page_type != "Article"):
-                        parse_page_input(input_string)
-                    else:
-                        parse_article_input(input_string)
+    print("Activated...")
+    #voice.init_listen()
+    while(True):    
+        #input_string = voice.voice_input
+        input_string = voice.get_audio()
+        if("exit" in input_string):
             break
-
+        elif(input_string == ""):
+            continue
+        elif("new york times" in input_string):
+            go_to_website("https://www.nytimes.com/")
+        elif("back" in input_string):
+            go_back()
+        elif(page_type != "Article"):
+           parse_page_input(input_string)
+        elif(page_type == "Article"):
+            parse_article_input(input_string)
+        time.sleep(0.2) 
     driver.quit()
 
 
@@ -153,5 +171,5 @@ def main():
     global driver, soup, page_type, page
     init()
     run()
-
+    
 main()
