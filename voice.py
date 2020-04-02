@@ -26,6 +26,8 @@ def get_audio():
             print(e)
     return said.lower()
 
+
+
 def speak(text):
     tts = gTTS(text)
     filename = "./tmp/voice.mp3"
@@ -40,13 +42,14 @@ def speak(text):
     play_obj = wave_obj.play()
     play_obj.wait_done()
     #TODO: Find a way to stop playback
-    '''
+
+
+'''
     while(play_obj.is_playing()):
         if input() != "":
             print("keyboard interrupt detected")
             play_obj.stop()
-    '''
-'''
+
 voice_input = ""
 
 def init_listen():
