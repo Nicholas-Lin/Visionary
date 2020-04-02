@@ -29,10 +29,11 @@ def go_to_page(link_text):
         elem = driver.find_element_by_link_text(link_text)
     except Exception as e:
         print(e)
-    try:
-        elem = driver.find_element_by_link_text(link_text.upper())
-    except Exception as e:
-        print(e)
+        try:
+            elem = driver.find_element_by_link_text(link_text.upper())
+        except Exception as e:
+            print(e)
+    
     elem.click()
     update()
 
@@ -71,6 +72,25 @@ def read_articles(articles):
         counter += 1
     print(output)
 
+    output = "The first three articles are:"
+    for i in range (3):
+        if (i == 2):
+            output += articles[i] + ". "
+        else:
+            output += articles[i] + ". The next article is "
+
+    output += "Would you like to hear the rest?"
+    voice.speak(output)
+    continue_listing = voice.get_audio()
+    if "yes" in continue_listing:
+        output = ""
+        for i in range (3, len(articles)):
+            output += article + ". "
+        voice.speak(output)
+    else:
+        return
+
+
 def go_back():
     driver.execute_script("window.history.go(-1)")
 
@@ -102,9 +122,9 @@ def init():
 
 def run():
     global page_type
-    print("Activated...")
     #voice.init_listen()
-    while(True):    
+    while(True):
+        print("Listening...")
         #input_string = voice.voice_input
         input_string = voice.get_audio()
         if("exit" in input_string):
@@ -119,7 +139,6 @@ def run():
            parse_page_input(input_string)
         elif(page_type == "Article"):
             parse_article_input(input_string)
-        time.sleep(0.2) 
     driver.quit()
 
 
@@ -156,14 +175,21 @@ def parse_article_input(input_string):
     if("read" in input_string):
         if("summary" in input_string):
             print(page.summary)
+            voice.speak(page.summary)
         elif("article" in input_string):
             print(page.body_text)
+            #TODO: Find a way to better output the article
+            voice.speak(page.body_text)
         else:
             print("Sorry that item was not found")
+            voice.speak("Sorry that item was not found")
     elif("who" in input_string):
+        #TODO: only prints first author if there is one. Might break if no authors
         print(page.authors[0])
+        voice.speak("The author is " + page.authors[0])
     elif("when" in input_string or "date" in input_string):
         print(page.date)
+        voice.speak("This article was published on " + page.date)
     else:
         print("Sorry, this feature is not supported.")
 

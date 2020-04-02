@@ -35,17 +35,26 @@ class Page:
 
     # Returns headline = {headline_text : headline_url_postfix}
     def init_headline(self, soup):
-        headline_text = soup.find('span', {'class':'balancedHeadline'}).text
+        headline_html = soup.find('div', {'class':'css-1t1jowt'})
+        headline_text = headline_html.find('span').text
         #headline_link = soup.find('div', {"class":"css-1t1jowt"}).a["href"]
         #self.headline = {headline_text : headline_link}
         self.headline = headline_text
 
+    #TODO: Make sure all articles are actually articles
     # Returns list of articles in the form [article1_title, article2_title, ...]
     def init_articles(self, soup):
         self.articles = []
-        for article_html in soup.findAll('article'):
-            if(article_html.find('h2') != None):
-                article_title = article_html.find('h2').text
+        if soup.find('section', {"data-testid":"block-Briefings"}):
+            soup.find('section', {"data-testid":"block-Briefings"}).decompose()
+
+        for article in soup.findAll('article'):
+            article_html = article.find('h2')
+            if(article_html != None):
+                if(article_html.find('span') != None):
+                    article_title = article_html.find('span').text
+                else:
+                    article_title = article_html.text
                 #article_link = article_html.a["href"]
                 #article = {article_title : article_link}
                 self.articles.append(article_title)
