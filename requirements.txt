@@ -1,0 +1,10 @@
+requests
+selenium
+bs4
+SpeechRecognition
+gTTS
+playsound
+pydub
+simpleaudio
+pyaudio
+

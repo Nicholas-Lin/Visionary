@@ -14,6 +14,7 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
     - playsound
     - pydub
     - simpleaudio
+- This can easily be done using `pip install -r requirements.txt`
 - Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - Install [ChromeDriver](https://chromedriver.chromium.org/downloads) and move the executable to your `$PATH`
 
