@@ -17,9 +17,6 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
 - Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - Install [ChromeDriver](https://chromedriver.chromium.org/downloads) and move the executable to your `$PATH`
 
-## TODOS
-- Improve input parser(s)
-
 ## Built With
 * Python 3
 * Beautiful Soup 4
@@ -27,5 +24,5 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
 * Google Text-to-Speech Library
 
 ## Other Info
-Nicholas Lin
-4/2/2020
+- Nicholas Lin
+- 4/2/2020
