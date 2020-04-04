@@ -14,10 +14,12 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
     - playsound
     - pydub
     - simpleaudio
-    - ffmpeg
+    - keyboard
+- This can easily be done using `pip install -r requirements.txt`
 - Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - Install [ChromeDriver](https://chromedriver.chromium.org/downloads) 
 and move the executable to your `$PATH`
+- Must run with root/admin priviledges to detect input for pausing voice playback
 
 ## Built With
 * Python 3

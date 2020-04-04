@@ -48,11 +48,14 @@ def go_to_article(link_text):
 
 def prompt():
     if (page_type == "Article"):
-        print(page.headline)
-        voice.speak(page.headline)
+        voice.speak("The title of this article is " + page.headline)
+        voice.speak("Say: \"read me the summary\" or \"read me the article\" to begin.")
     elif (page_type == "Home"):
-        print(page.headline)
-        voice.speak("The headline is " + page.headline)
+        voice.speak("You are on the homepage of the New York Times website. The headline is " + page.headline)
+        voice.speak("There are " + str(len(page.articles)) + " articles featured on this page.")
+    elif (page_type == "Navigation"):
+        voice.speak("The featured article in this section is: " + page.articles[0])
+        voice.speak("There are " + str(len(page.articles)) + " articles featured on this page.")
 
 
 def read_headers(headers):
@@ -93,6 +96,7 @@ def read_articles(articles):
 
 def go_back():
     driver.execute_script("window.history.go(-1)")
+    update()
 
 def update():   
     global soup, page
@@ -119,6 +123,11 @@ def init():
     voice.speak("Hello, where would you like to go?")
     global driver
     driver = webdriver.Chrome()
+
+def test_init():
+    global driver
+    driver = webdriver.Chrome()
+    go_to_website("https://www.nytimes.com/")
 
 def run():
     global page_type
@@ -174,15 +183,11 @@ def parse_page_input(input_string):
 def parse_article_input(input_string):
     if("read" in input_string):
         if("summary" in input_string):
-            print(page.summary)
             voice.speak(page.summary)
         elif("article" in input_string):
-            print(page.body_text)
-            #TODO: Find a way to better output the article
-            voice.speak(page.body_text)
+            voice.read(page.body_text)
         else:
             print("Sorry that item was not found")
-            voice.speak("Sorry that item was not found")
     elif("who" in input_string):
         #TODO: only prints first author if there is one. Might break if no authors
         print(page.authors[0])
@@ -195,7 +200,7 @@ def parse_article_input(input_string):
 
 def main():
     global driver, soup, page_type, page
-    init()
+    test_init()
     run()
     
 main()

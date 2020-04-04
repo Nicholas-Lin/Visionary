@@ -32,6 +32,7 @@ class Article:
         section_html = article_soup.find('section', {'name' : 'articleBody'})
         paragraphs = section_html.findAll('p')
         for paragraph in paragraphs:
-            self.body_text += " " + paragraph.text
+            self.body_text += " " + paragraph.text + " "
 
             
+    

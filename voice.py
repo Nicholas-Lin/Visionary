@@ -5,8 +5,10 @@ voice.py
 '''
 
 import os
+import re
 import time
 import playsound
+import keyboard
 import speech_recognition as sr
 from gtts import gTTS
 import simpleaudio as sa
@@ -29,21 +31,35 @@ def get_audio():
 
 
 def speak(text):
+    print(text)
     tts = gTTS(text)
-    filename = "./tmp/voice.mp3"
+    filename = "voice.mp3"
     tts.save(filename)
 
     # Need to convert mp3 to WAV
     sound = AudioSegment.from_mp3(filename)
-    sound.export("./tmp/voice.wav", format="wav")
+    sound.export("voice.wav", format="wav")
 
     # Need to use sa to have control over playback
-    wave_obj = sa.WaveObject.from_wave_file("./tmp/voice.wav")
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
+    wave_obj = sa.WaveObject.from_wave_file("voice.wav")
+    play_obj = wave_obj.play() 
     #TODO: Find a way to stop playback
+    while(play_obj.is_playing()):
+        if keyboard.is_pressed('s'):
+            play_obj.stop()
 
-
+# Used for reading long input
+def read(text):
+    words = text.split(" ")
+    read_it = ""
+    for x in range(len(words)):
+        read_it += words[x] + " "
+        if "." in words[x] or x == len(words)-1:
+            speak(read_it)
+            read_it = ""
+        if keyboard.is_pressed('s'):
+            break
+        
 '''
     while(play_obj.is_playing()):
         if input() != "":
