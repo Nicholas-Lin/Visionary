@@ -53,7 +53,6 @@ def read_articles(articles):
             output += articles[i] + ". "
         else:
             output += articles[i] + ". The next article is "
-
     output += "Would you like to hear the rest?"
     voice.speak(output)
     continue_listing = voice.get_audio()

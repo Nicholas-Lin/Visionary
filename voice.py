@@ -27,7 +27,6 @@ def get_audio():
             print(e)
     return said.lower()
 
-
 def speak(text):
     print(text)
     tts = gTTS(text)

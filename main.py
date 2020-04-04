@@ -51,8 +51,6 @@ def run():
                 nytimes.parse_article_input(input_string)
         if globals.website == "youtube":
             youtube.parse_page_input(input_string)
-
-        
     globals.driver.quit()
 
 def main():

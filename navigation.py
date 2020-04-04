@@ -25,14 +25,14 @@ def go_to_website(url):
 def go_to_page(link_text):
     try:
         elem = globals.driver.find_element_by_link_text(link_text)
+        elem.click()
     except Exception as e:
         print(e)
         try:
             elem = globals.driver.find_element_by_link_text(link_text.upper())
+            elem.click()
         except Exception as e:
             print(e)
-    
-    elem.click()
     update()
     prompt()
 

@@ -20,7 +20,7 @@ def parse_page_input(input_string):
                 print(globals.page.headline)
             else:
                 print("Sorry that item was not found")
-    elif("go" in input_string ):
+    elif("go" in input_string  or "take" in input_string):
         if("article" in input_string):
             globals.page_type = "Article"
             if("first" in input_string):
