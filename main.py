@@ -29,7 +29,6 @@ def run():
     #voice.init_listen()
     while(True):
         print("Listening...")
-        playsound.playsound("activation_beep.mp3")
         #input_string = voice.voice_input
         input_string = voice.get_audio()
         if(input_string == ""):

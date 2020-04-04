@@ -14,6 +14,7 @@ import simpleaudio as sa
 from pydub import AudioSegment
 
 def get_audio():
+    playsound.playsound("activation_beep.mp3")
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.dynamic_energy_threshold = True
