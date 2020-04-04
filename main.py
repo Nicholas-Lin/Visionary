@@ -43,12 +43,12 @@ def run():
             navigation.go_to_website("https://www.youtube.com/")
         elif("back" in input_string):
             navigation.go_back()
-        if globals.website == "nytimes":
+        elif globals.website == "nytimes":
             if(globals.page_type != "Article"):
                 nytimes.parse_page_input(input_string)
             elif(globals.page_type == "Article"):
                 nytimes.parse_article_input(input_string)
-        if globals.website == "youtube":
+        elif globals.website == "youtube":
             youtube.parse_page_input(input_string)
     globals.driver.quit()
 

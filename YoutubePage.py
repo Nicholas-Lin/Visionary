@@ -1,12 +1,12 @@
 class YoutubePage:
     page_type = ""
 
+
     def __init__(self, soup= "", page_type = "none"):
         if(soup != ""):
             self.page_type = page_type
             self.soup = soup
             self.init_articles(soup)
-            self.init_headers(soup)
             if(page_type == "Home"):
                 self.init_headline(soup)
 

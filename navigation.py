@@ -20,6 +20,7 @@ def update_soup():
 def go_to_website(url):
     globals.driver.get(url)
     update()
+    prompt()
 
 #TODO: Find a better way of matching link_text to uppercase
 def go_to_page(link_text):
