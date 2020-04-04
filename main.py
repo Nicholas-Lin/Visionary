@@ -1,6 +1,6 @@
 '''
 Nicholas Lin
-finder.py
+main.py
 4/2/20
 '''
 

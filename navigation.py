@@ -1,3 +1,8 @@
+'''
+Nicholas Lin
+navigation.py
+4/4/20
+'''
 
 import requests
 from selenium import webdriver

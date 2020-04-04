@@ -1,3 +1,9 @@
+'''
+Nicholas Lin
+globals.py
+4/4/20
+'''
+
 from selenium import webdriver
 from Page import Page
 from Article import Article

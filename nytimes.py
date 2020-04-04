@@ -1,3 +1,9 @@
+'''
+Nicholas Lin
+nytimes.py
+4/2/20
+'''
+
 from Article import Article
 from Page import Page
 import globals
