@@ -51,7 +51,7 @@ def update():
 
 def update_website_base():
     url = globals.driver.current_url
-    globals.website_base = url.split[0].lower()
+    globals.website_base = url.split()[0].lower()
 
 def update_page_type():
     url = globals.driver.current_url
@@ -61,7 +61,7 @@ def update_page_type():
         globals.page_type = "Article"
     else:
         globals.page_type = "Navigation"
-
+    
 
 def prompt():
     if(globals.website == "nytimes"):

@@ -16,6 +16,7 @@ import globals
 import voice
 import navigation
 import nytimes
+import youtube
 
 
 def init():
@@ -28,12 +29,13 @@ def run():
     #voice.init_listen()
     while(True):
         print("Listening...")
+        playsound.playsound("activation_beep.mp3")
         #input_string = voice.voice_input
         input_string = voice.get_audio()
         if(input_string == ""):
-            break
-        elif("exit" in input_string):
             continue
+        elif("exit" in input_string):
+            break
         elif("new york times" in input_string):
             globals.website = "nytimes"
             navigation.go_to_website("https://www.nytimes.com/")
@@ -47,6 +49,10 @@ def run():
                 nytimes.parse_page_input(input_string)
             elif(globals.page_type == "Article"):
                 nytimes.parse_article_input(input_string)
+        if globals.website == "youtube":
+            youtube.parse_page_input(input_string)
+
+        
     globals.driver.quit()
 
 def main():

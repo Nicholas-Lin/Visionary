@@ -3,7 +3,6 @@ Nicholas Lin
 voice.py
 4/2/20
 '''
-
 import os
 import re
 import time
@@ -29,12 +28,15 @@ def get_audio():
     return said.lower()
 
 
-
 def speak(text):
     print(text)
     tts = gTTS(text)
     filename = "voice.mp3"
     tts.save(filename)
+
+    # To use code without ffmpeg comment the rest of this method out
+    # Comment out "from pydub import AudioSegment"
+    # Add "playsound.playsound(filename)"
 
     # Need to convert mp3 to WAV
     sound = AudioSegment.from_mp3(filename)

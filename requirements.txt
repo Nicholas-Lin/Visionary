@@ -8,3 +8,5 @@ pydub
 simpleaudio
 pyaudio
 keyboard
+ffmpeg
+lxml
