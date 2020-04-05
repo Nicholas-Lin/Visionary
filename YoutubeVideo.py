@@ -10,7 +10,7 @@ class YoutubeVideo:
     date = ""
     description = ""
     comments = []
-    num_views = 0
+    #num_views = 0
 
     def __init__(self, video_soup = ""):
         if(video_soup != ""):
@@ -32,7 +32,6 @@ class YoutubeVideo:
             if(description_html != None):
                 self.description = description_html.text
 
-            #Set body_text
-            views_html = video_soup.find('div', {'id' : 'count'})
-            views = views_html.find('span')
-            self.num_views = views.text
+            #Set num_views
+            #views_html = video_soup.find('span', {'class' : 'view-count'})
+            #self.num_views = views_html.text

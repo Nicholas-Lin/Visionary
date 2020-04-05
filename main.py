@@ -22,8 +22,8 @@ def run():
     #voice.init_listen()
     while(True):
         print("Listening...")
-        #input_string = voice.voice_input
         input_string = voice.get_audio()
+        #input_string = input()
         if(input_string == ""):
             continue
         elif("exit" in input_string):
@@ -37,12 +37,16 @@ def run():
         elif("back" in input_string):
             navigation.go_back()
         elif globals.website == "nytimes":
-            if(globals.page_type != "Article"):
-                nytimes.parse_page_input(input_string)
-            elif(globals.page_type == "Article"):
+            if(globals.page_type == "Article"):
                 nytimes.parse_article_input(input_string)
+            else:
+                nytimes.parse_page_input(input_string)
         elif globals.website == "youtube":
-            youtube.parse_page_input(input_string)
+            if(globals.page_type == "YoutubeVideo"):
+                youtube.parse_video_input(input_string)
+            else:
+                youtube.parse_page_input(input_string)
+            
     globals.driver.quit()
 
 def main():

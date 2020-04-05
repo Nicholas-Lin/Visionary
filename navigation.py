@@ -6,6 +6,7 @@ navigation.py
 
 import requests
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
 from Article import Article
@@ -15,6 +16,12 @@ from YoutubeVideo import YoutubeVideo
 import globals
 import voice
 
+def toggle_pause():
+    globals.driver.find_element_by_tag_name('body').send_keys('k')
+
+def search(input):
+    input = input.replace(" ", "+")
+    go_to_website("https://www.youtube.com/results?search_query=" + input)
 
 def update_soup():
     globals.soup = BeautifulSoup(globals.driver.page_source, 'lxml')
@@ -26,6 +33,7 @@ def go_to_website(url):
 
 #TODO: Find a better way of matching link_text to uppercase
 def go_to_page(link_text):
+    link_text = link_text.strip()
     try:
         elem = globals.driver.find_element_by_link_text(link_text)
         elem.click()
@@ -65,14 +73,14 @@ def update_website_base():
 
 def update_page_type():
     url = globals.driver.current_url
-    if("nytimes" in globals.website):
+    if("nytimes" in url):
         if(url.endswith(".com/")):
             globals.page_type = "Home"
         elif(url.endswith(".html")):
             globals.page_type = "Article"
         else:
             globals.page_type = "Navigation"
-    elif("youtube" in globals.website):
+    elif("youtube" in url):
         if(url.endswith(".com/")):
             globals.page_type = "YoutubeHome"
         elif("/watch" in url):
@@ -80,7 +88,7 @@ def update_page_type():
         elif("/channel" in url):
             globals.page_type = "YoutubeChannel"
         elif("/results" in url):
-            globals.page_type = "YoutubeNavigation"
+            globals.page_type = "YoutubeResults"
     
 
 def prompt():
@@ -99,7 +107,8 @@ def prompt():
     elif(globals.website == "youtube"):
         if(globals.page_type == "YoutubeHome"):
             voice.speak("You are on the homepage of Youtube.")
-        elif(globals.page_type == "YoutubeVideo"):
-            voice.speak("The title of this video is " + globals.page.title)
-        elif(globals.page_type == "YoutubeNavigation"):
-            voice.speak("There are results on this page")
+            voice.speak("There are " + str(len(globals.page.videos)) + " videos featured on this page.")
+            voice.speak("Say \"search\" to search for a video.")
+        elif(globals.page_type == "YoutubeResults"):
+            voice.speak("There are " + str(len(globals.page.videos)) + " featured results.")
+
