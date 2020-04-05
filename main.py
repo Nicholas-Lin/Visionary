@@ -4,12 +4,6 @@ main.py
 4/2/20
 '''
 
-import requests
-from selenium import webdriver
-from bs4 import BeautifulSoup
-import playsound
-import time
-
 from Article import Article
 from Page import Page
 import globals
@@ -17,7 +11,6 @@ import voice
 import navigation
 import nytimes
 import youtube
-
 
 def init():
     voice.speak("Hello, where would you like to go?")

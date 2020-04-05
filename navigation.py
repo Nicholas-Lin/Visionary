@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 
 from Article import Article
 from Page import Page
+from YoutubePage import YoutubePage
+from YoutubeVideo import YoutubeVideo
 import globals
 import voice
 
@@ -45,23 +47,40 @@ def update():
     update_soup()
     update_website_base()
     update_page_type()
-    if(globals.page_type == "Article"):
-        globals.page = Article(globals.soup)
-    else:
-        globals.page = Page(globals.soup, globals.page_type)
+    if("nytimes" in globals.website):
+        if(globals.page_type == "Article"):
+            globals.page = Article(globals.soup)
+        else:
+            globals.page = Page(globals.soup, globals.page_type)
+    elif("youtube" in globals.website):
+        if(globals.page_type == "YoutubeVideo"):
+            globals.page = YoutubeVideo(globals.soup)
+        else:
+            globals.page = YoutubePage(globals.soup, globals.page_type)
+
 
 def update_website_base():
     url = globals.driver.current_url
-    globals.website_base = url.split()[0].lower()
+    globals.website = url.split(".")[1].lower()
 
 def update_page_type():
     url = globals.driver.current_url
-    if(url.endswith(".com/")):
-        globals.page_type = "Home"
-    elif(url.endswith(".html")):
-        globals.page_type = "Article"
-    else:
-        globals.page_type = "Navigation"
+    if("nytimes" in globals.website):
+        if(url.endswith(".com/")):
+            globals.page_type = "Home"
+        elif(url.endswith(".html")):
+            globals.page_type = "Article"
+        else:
+            globals.page_type = "Navigation"
+    elif("youtube" in globals.website):
+        if(url.endswith(".com/")):
+            globals.page_type = "YoutubeHome"
+        elif("/watch" in url):
+            globals.page_type = "YoutubeVideo"
+        elif("/channel" in url):
+            globals.page_type = "YoutubeChannel"
+        elif("/results" in url):
+            globals.page_type = "YoutubeNavigation"
     
 
 def prompt():
@@ -78,5 +97,9 @@ def prompt():
             voice.speak("The featured article in this section is: " + globals.page.articles[0])
             voice.speak("There are " + str(len(globals.page.articles)) + " articles featured on this page.")
     elif(globals.website == "youtube"):
-        if(globals.page_type == "Home"):
-            print("")
+        if(globals.page_type == "YoutubeHome"):
+            voice.speak("You are on the homepage of Youtube.")
+        elif(globals.page_type == "YoutubeVideo"):
+            voice.speak("The title of this video is " + globals.page.title)
+        elif(globals.page_type == "YoutubeNavigation"):
+            voice.speak("There are results on this page")
