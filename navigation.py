@@ -111,4 +111,3 @@ def prompt():
             voice.speak("Say \"search\" to search for a video.")
         elif(globals.page_type == "YoutubeResults"):
             voice.speak("There are " + str(len(globals.page.videos)) + " featured results.")
-

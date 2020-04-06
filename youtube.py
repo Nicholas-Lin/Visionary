@@ -36,10 +36,8 @@ def parse_video_input(input_string):
         navigation.toggle_pause()
     elif("channel" in input_string):
         voice.speak("The name of this channel is " + globals.page.channel)
-    elif("when" in input_string or "date" in input_string):
-        voice.speak("This video was posted on " + globals.page.date)
-    elif("description" in input_string):
-        voice.speak(globals.page.description)
+    elif("view" in input_string):
+        voice.speak(globals.page.num_views)
     else:
         print("Sorry, this feature is not supported.")
 
