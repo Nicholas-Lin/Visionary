@@ -11,7 +11,7 @@ import navigation
 import voice
 
 def parse_page_input(input_string):
-    if("read" in input_string):
+    if("read" in input_string or "what" in input_string):
             if("header" in input_string):
                 read_headers(globals.page.headers)
             elif("article" in input_string):

@@ -63,6 +63,7 @@ def read(text):
             read_it = ""
         if keyboard.is_pressed('s'):
             break
+
         
 '''
     while(play_obj.is_playing()):

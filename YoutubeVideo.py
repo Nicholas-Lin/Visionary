@@ -30,7 +30,8 @@ class YoutubeVideo:
             #Set description
             description_html = video_soup.find('div', {'id':'description'})
             self.description = description_html.text
-            '''
+            
             #Set num_views
             views_html = video_soup.find('span', {'class' : 'view-count'})
             self.num_views = views_html.text
+            '''

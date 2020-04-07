@@ -17,7 +17,7 @@ def parse_page_input(input_string):
             navigation.go_to_page(globals.page.videos[1][0])
         elif("third" in input_string):
             navigation.go_to_page(globals.page.videos[2][0])
-    elif("list" in input_string or "what video" in input_string):
+    elif("list" in input_string or "what video" in input_string or "results" in input_string):
         list_videos(globals.page.videos)
     elif("search" in input_string):
         youtube_search()
