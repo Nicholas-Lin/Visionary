@@ -14,11 +14,12 @@ import simpleaudio as sa
 from pydub import AudioSegment
 
 def get_audio():
-    playsound.playsound("activation_beep.mp3")
+    
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.dynamic_energy_threshold = True
         r.adjust_for_ambient_noise(source)
+        playsound.playsound("start_beep.mp3")
         audio = r.listen(source, timeout = None)
         said = ""
         try:
@@ -26,6 +27,7 @@ def get_audio():
             print(said)
         except Exception as e:
             print(e)
+    playsound.playsound("stop_beep.mp3")
     return said.lower()
 
 def speak(text):

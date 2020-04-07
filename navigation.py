@@ -8,6 +8,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
+import playsound
 
 from Article import Article
 from Page import Page
@@ -65,6 +66,7 @@ def update():
             globals.page = YoutubeVideo(globals.soup)
         else:
             globals.page = YoutubePage(globals.soup, globals.page_type)
+    playsound.playsound("confirmation_beep.mp3")
 
 
 def update_website_base():

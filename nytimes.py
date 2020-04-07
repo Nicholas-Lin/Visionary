@@ -60,7 +60,7 @@ def read_headers(headers):
     output = ""
     for header in headers:
         output += header + ", "
-    voice.speak(output)
+    voice.speak("The headers are: " + output)
 
 def read_articles(articles):
     output = "The first three articles are:"
