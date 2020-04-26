@@ -10,8 +10,7 @@ import playsound
 import keyboard
 import speech_recognition as sr
 from gtts import gTTS
-import simpleaudio as sa
-from pydub import AudioSegment
+from pygame import mixer
 
 def get_audio():
     
@@ -35,22 +34,13 @@ def speak(text):
     tts = gTTS(text)
     filename = "voice.mp3"
     tts.save(filename)
-
-    # To use code without ffmpeg comment the rest of this method out
-    # Comment out "from pydub import AudioSegment"
-    # Add "playsound.playsound(filename)"
-
-    # Need to convert mp3 to WAV
-    sound = AudioSegment.from_mp3(filename)
-    sound.export("voice.wav", format="wav")
-
-    # Need to use sa to have control over playback
-    wave_obj = sa.WaveObject.from_wave_file("voice.wav")
-    play_obj = wave_obj.play() 
-    #TODO: Find a way to stop playback
-    while(play_obj.is_playing()):
+    mixer.init()
+    mixer.music.load(filename)
+    mixer.music.play()
+    while(mixer.music.get_busy()):
         if keyboard.is_pressed('s'):
-            play_obj.stop()
+            mixer.music.stop()
+            break
 
 # Used for reading long input
 def read(text):

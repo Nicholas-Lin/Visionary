@@ -12,9 +12,8 @@ This is a prototype of a voice-driven screen reader to increase internet accessi
     - SpeechRecognition
     - gTTS
     - playsound
-    - pydub
-    - simpleaudio
     - keyboard
+    - pygame
 - This can easily be done using `pip install -r requirements.txt`
 - Install [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - Install [ChromeDriver](https://chromedriver.chromium.org/downloads) 
