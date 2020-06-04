@@ -1,0 +1,2 @@
+1. Add comments
+2. Clean up file structure
