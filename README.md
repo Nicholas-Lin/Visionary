@@ -2,7 +2,7 @@
 Checkout the demo [here](https://www.youtube.com/watch?v=ahDwlm0szXE)
 
 ## Description
->> Check out the demo [here](https://www.youtube.com/watch?v=ahDwlm0szXE)
+> Check out the demo [here](https://www.youtube.com/watch?v=ahDwlm0szXE)
 
 This is a prototype of a voice-driven screen reader to increase internet accessibility for blind/vision-impaired internet users. This particular prototype is for the New York Times.
 
