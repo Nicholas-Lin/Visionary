@@ -1,5 +1,4 @@
 # Visionary
-Checkout the demo [here](https://www.youtube.com/watch?v=ahDwlm0szXE)
 
 ## Description
 > Check out the demo [here](https://www.youtube.com/watch?v=ahDwlm0szXE)
